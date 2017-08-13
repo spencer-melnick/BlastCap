@@ -1,0 +1,77 @@
+[gd_scene load_steps=5 format=1]
+
+[ext_resource path="res://game/maps/ph_map_01/ph_map_01_wide.tscn" type="PackedScene" id=1]
+[ext_resource path="res://game/character/character.tscn" type="PackedScene" id=2]
+[ext_resource path="res://game/controllers/playercontroller/playercontroller.tscn" type="PackedScene" id=3]
+[ext_resource path="res://game/core/camera/camera_shake.gd" type="Script" id=4]
+
+[node name="Node2D" type="Control"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 0.0
+margin/bottom = 0.0
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+layer = 1
+offset = Vector2( 0, 0 )
+rotation = 0.0
+scale = Vector2( 1, 1 )
+
+[node name="Node2D" type="Node2D" parent="."]
+
+[node name="GameArea" parent="Node2D" instance=ExtResource( 1 )]
+
+transform/pos = Vector2( 300, 120 )
+bomb_powerup_rate = 15
+radius_powerup_rate = 10
+speed_powerup_rate = 7
+
+[node name="Character 2" parent="Node2D" instance=ExtResource( 2 )]
+
+transform/pos = Vector2( 1000, 180 )
+walk_speed = 120.0
+bomb_radius = 1
+
+[node name="Character" parent="Node2D" instance=ExtResource( 2 )]
+
+transform/pos = Vector2( 360, 180 )
+walk_speed = 120.0
+bomb_radius = 1
+
+[node name="PlayerController" parent="Node2D" instance=ExtResource( 3 )]
+
+character_path = NodePath("../Character")
+
+[node name="PlayerController 2" parent="Node2D" instance=ExtResource( 3 )]
+
+character_path = NodePath("../Character 2")
+player_num = 2
+
+[node name="Camera2D" type="Camera2D" parent="Node2D"]
+
+transform/pos = Vector2( 640, 360 )
+anchor_mode = 1
+rotating = false
+current = true
+zoom = Vector2( 1, 1 )
+limit/left = -10000000
+limit/top = -10000000
+limit/right = 10000000
+limit/bottom = 10000000
+drag_margin/h_enabled = false
+drag_margin/v_enabled = false
+smoothing/enable = false
+smoothing/speed = 5.0
+drag_margin/left = 0.2
+drag_margin/top = 0.2
+drag_margin/right = 0.2
+drag_margin/bottom = 0.2
+script/script = ExtResource( 4 )
+
+

@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=1]
+
+[ext_resource path="res://game/character/character.gd" type="Script" id=1]
+[ext_resource path="res://game/character/sprites/ph_character/ph_character_anim.tscn" type="PackedScene" id=2]
+
+[node name="Character" type="Node2D"]
+
+script/script = ExtResource( 1 )
+walk_speed = 40.0
+max_bombs = 1
+
+[node name="CharacterAnim" parent="." instance=ExtResource( 2 )]
+
+
