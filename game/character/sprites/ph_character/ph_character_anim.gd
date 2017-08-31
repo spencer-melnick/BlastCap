@@ -18,7 +18,7 @@ export (int, 1, 4) var player_num = 1;
 func _ready():
 	anim.play("walk_down");
 	anim.seek(0, true);
-	anim.stop();
+	anim.stop(false);
 	
 	set_material(get_material().duplicate());
 	set_process(true);
@@ -27,7 +27,7 @@ func _ready():
 func _process(delta):
 	if (enabled):
 		if (!playing):
-			anim.stop();
+			anim.stop(false);
 		
 		playing = false;
 
@@ -49,13 +49,15 @@ func walk(direction):
 		if (direction == RIGHT):
 			current_anim = "walk_right";
 		
-		if (current_anim != past_anim):
+		if (current_anim != past_anim || !anim.is_playing()):
 			if (current_anim.find("walk") != -1 && past_anim.find("walk") != -1):
 				var frame = anim.get_current_animation_pos();
 				anim.play(current_anim);
 				anim.seek(frame, true);
 			else:
+				#var frame = anim.get_current_animation_pos();
 				anim.play(current_anim);
+				#anim.seek(frame, true);
 
 func explode():
 	anim.play("death");
