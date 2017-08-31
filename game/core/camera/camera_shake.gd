@@ -22,9 +22,10 @@ func _process(delta):
 			set_pos(start_pos + 0.5 * Vector2(horiz_shake(elapsed_time), vert_shake(elapsed_time)));
 
 func shake():
-	elapsed_time = 0;
-	phase = rand_range(-3, 3);
-	shaking = true;
+	if (settings.camera_shake_enabled):
+		elapsed_time = 0;
+		phase = rand_range(-3, 3);
+		shaking = true;
 
 func horiz_shake(time):
 	return round(sin(exp(2 - 4 * time) + phase) * exp(0.5 - 5 * time));

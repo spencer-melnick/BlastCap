@@ -5,14 +5,15 @@ extends Node2D
 
 # Editor values
 
-export var walk_speed = 40.0;
+export var walk_speed = 120.0;
 export(int, 1, 99) var max_bombs = 1;
 export(int, 1, 99) var bomb_radius = 1;
 
 
 # Game entities
 
-onready var grid = get_parent().get_node("GameArea");
+onready var game_mode = get_parent().get_parent();
+onready var grid = get_parent().get_node("GameBoard");
 onready var sprite = get_node("CharacterAnim");
 
 
@@ -27,11 +28,13 @@ var active_bombs = 0;
 var last_cell = Vector2();
 var cell_coord = Vector2();
 var alive = true;
+var player_num = 1;
 
 
 func _ready():
 	cell_coord = grid.world_to_cell_coord(get_pos());
-	grid.characters.push_back(self);
+	game_mode.characters.push_back(self);
+	sprite.set_palette_num(player_num);
 	pass;
 
 
@@ -96,7 +99,7 @@ func die():
 
 
 func move_x(delta):
-	if (alive):
+	if (alive && game_mode.can_move):
 		var pos = get_pos();
 		var next_pos = pos + Vector2(delta * walk_speed, 0);
 		
@@ -140,7 +143,7 @@ func move_x(delta):
 		check_cell();
 
 func move_y(delta):
-	if (alive):
+	if (alive && game_mode.can_move):
 		var pos = get_pos();
 		var next_pos = pos + Vector2(0, delta * walk_speed);
 		
@@ -185,7 +188,7 @@ func move_y(delta):
 
 
 func place_bomb():
-	if (alive && active_bombs < max_bombs && !grid.is_cell_solid(cell_coord)):
+	if (alive && game_mode.can_place_bombs && active_bombs < max_bombs && !grid.is_cell_solid(cell_coord)):
 		active_bombs += 1;
 		
 		var pos = get_pos();
@@ -200,4 +203,4 @@ func place_bomb():
 
 
 func on_anim_death_end():
-	print("Character died!");
+	game_mode.on_character_death();

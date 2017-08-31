@@ -2,6 +2,7 @@ extends TileMap
 
 var entities = [];
 var characters = [];
+var spawn_points = [];
 var grid_size = Vector2();
 
 export var solid_tiles = [];
@@ -12,11 +13,14 @@ export (int, 0, 100) var bomb_powerup_rate = 15;
 export (int, 0, 100) var radius_powerup_rate = 10;
 export (int, 0, 100) var speed_powerup_rate = 7;
 
+onready var game_area = get_parent();
+onready var game_mode = game_area.get_parent();
+
 onready var powerup_scn = load("res://game/powerups/powerup.tscn");
 
 func _ready():
 	clear_random_cells(10);
-	
+	find_spawn_points(4);
 	pass
 
 func clear_random_cells(num):
@@ -30,6 +34,13 @@ func clear_random_cells(num):
 		var index = randi() % removable_cells.size();
 		set_cellv(removable_cells[index], broken_tile);
 		removable_cells.remove(index);
+
+func find_spawn_points(num):
+	spawn_points.resize(num);
+	
+	for i in range(num):
+		var new_spawn = get_node("Spawn" + str(i + 1));
+		spawn_points[i] = new_spawn;
 
 func get_half_tile_offset():
 	return get_cell_size() * get_scale() / 2;
@@ -46,7 +57,7 @@ func get_tile_progression(id):
 func get_characters_at_cell(pos):
 	var result = [];
 	
-	for character in characters:
+	for character in game_mode.characters:
 		if (character.cell_coord == pos):
 			result.push_back(character);
 	

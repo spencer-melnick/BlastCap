@@ -6,8 +6,9 @@
 [node name="Character" type="Node2D"]
 
 script/script = ExtResource( 1 )
-walk_speed = 40.0
+walk_speed = 120.0
 max_bombs = 1
+bomb_radius = 1
 
 [node name="CharacterAnim" parent="." instance=ExtResource( 2 )]
 

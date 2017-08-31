@@ -25,5 +25,28 @@ script/script = ExtResource( 2 )
 solid_tiles = [ 1, 2 ]
 breakable_tiles = [ 1 ]
 broken_tile = 0
+bomb_powerup_rate = 15
+radius_powerup_rate = 10
+speed_powerup_rate = 7
+
+[node name="Spawn1" type="Node2D" parent="."]
+
+transform/pos = Vector2( 30, 30 )
+transform/scale = Vector2( 0.5, 0.5 )
+
+[node name="Spawn2" type="Node2D" parent="."]
+
+transform/pos = Vector2( 350, 30 )
+transform/scale = Vector2( 0.5, 0.5 )
+
+[node name="Spawn3" type="Node2D" parent="."]
+
+transform/pos = Vector2( 30, 270 )
+transform/scale = Vector2( 0.5, 0.5 )
+
+[node name="Spawn4" type="Node2D" parent="."]
+
+transform/pos = Vector2( 350, 270 )
+transform/scale = Vector2( 0.5, 0.5 )
 
 

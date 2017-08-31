@@ -6,8 +6,9 @@ onready var anim = get_node("AnimationPlayer");
 onready var sound = get_node("SamplePlayer");
 onready var timer = get_node("Timer");
 onready var grid = get_parent();
-onready var game = grid.get_parent();
-onready var camera = game.get_node("Camera2D");
+onready var game_area = grid.get_parent();
+onready var game_mode = game_area.get_parent();
+onready var camera = game_area.get_node("Camera2D");
 
 
 # Resources

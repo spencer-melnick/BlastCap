@@ -13,11 +13,14 @@ var current_anim = "walk_down";
 var playing = true;
 var enabled = true;
 
+export (int, 1, 4) var player_num = 1;
+
 func _ready():
 	anim.play("walk_down");
 	anim.seek(0, true);
 	anim.stop();
 	
+	set_material(get_material().duplicate());
 	set_process(true);
 	pass
 
@@ -27,6 +30,10 @@ func _process(delta):
 			anim.stop();
 		
 		playing = false;
+
+func set_palette_num(player_num):
+	var material = get_material();
+	material.set_shader_param("palette_num", (player_num - 1) * 0.25 + 0.12);
 
 func walk(direction):
 	if (enabled):

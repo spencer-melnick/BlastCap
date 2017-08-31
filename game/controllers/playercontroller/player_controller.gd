@@ -1,7 +1,6 @@
 extends Node2D
 
-export (NodePath) var character_path;
-onready var character = get_node(character_path);
+var character;
 
 export (int, 1, 4) var player_num = 1;
 onready var player_str = "player" + str(player_num);
